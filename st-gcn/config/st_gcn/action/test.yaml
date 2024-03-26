@@ -1,0 +1,22 @@
+weights: ./work_dir/recognition/Actiondata2/20batchsize/epoch150_model.pt
+
+# feeder
+feeder: feeder.feeder.Feeder
+test_feeder_args:
+  data_path: ./data/Action/val_data.npy
+  label_path: ./data/Action/val_label.pkl
+
+# model
+model: net.st_gcn.Model
+model_args:
+  in_channels: 3
+  num_class: 2
+  edge_importance_weighting: True
+  graph_args:
+    layout: 'openpose'
+    strategy: 'spatial'
+
+# test 
+phase: test
+device: 1
+test_batch_size: 10

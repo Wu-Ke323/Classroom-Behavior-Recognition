@@ -1,0 +1,37 @@
+work_dir: ./work_dir/recognition/Actiondata2/usr/
+weights: ./models/st_gcn.ntu-xview.pt
+
+# feeder
+feeder: feeder.feeder.Feeder
+train_feeder_args:
+  random_choose: True
+  random_move: True
+  window_size: 150 
+  data_path: ./data/Action/train_data.npy
+  label_path: ./data/Action/train_label.pkl
+test_feeder_args:
+  data_path: ./data/Action/val_data.npy
+  label_path: ./data/Action/val_label.pkl
+
+# model
+model: net.st_gcn.Model
+model_args:
+  in_channels: 3
+  num_class: 2
+  edge_importance_weighting: True
+  graph_args:
+    layout: 'openpose'
+    strategy: 'spatial'
+
+# training
+device: [1]
+batch_size: 20 
+test_batch_size: 20
+
+#optim
+base_lr: 0.0001
+step: [50, 80, 100, 120, 130, 140, 150]
+num_epoch: 150
+
+
+
